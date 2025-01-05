@@ -1,4 +1,4 @@
-name: PHP CI
+name: Validate composer.json and composer.lock
 
 on:
   push:
@@ -13,24 +13,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout code
+      # Step 1: Checkout the code
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Set up PHP
-      - name: Set up PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.0'
-
-      # Install dependencies
-      - name: Install dependencies
-        run: composer install
-
-      # List files to ensure composer.json exists
+      # Step 2: List all files in the directory for debugging
       - name: List files in workspace
         run: ls -la
 
-      # Validate composer.json
+      # Step 3: Validate composer.json
       - name: Validate composer.json
         run: composer validate --strict
